@@ -1,0 +1,11 @@
+extends layout-blank
+
+block content
+  script.
+    var targetWindow = window.opener || window.parent;
+    targetWindow.postMessage({
+      isSuccess: #{isSuccess},
+      redirectUrl: '#{redirectUrl}',
+      payload: '#{payload}'
+    }, '#{origin}');
+    window.close();

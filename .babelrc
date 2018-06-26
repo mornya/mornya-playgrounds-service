@@ -1,0 +1,44 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    [
+      "minify",
+      {
+        "mangle": false
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [ "./src/**" ]
+      }
+    ],
+    "transform-object-rest-spread",
+    "transform-class-properties"
+  ],
+  "env": {
+    "test": {
+      "presets": [ "env" ],
+      "plugins": [
+        [
+          "module-resolver",
+          {
+            "root": [ "./src/**" ]
+          }
+        ],
+        "istanbul",
+        "transform-object-rest-spread",
+        "transform-class-properties"
+      ]
+    }
+  }
+}
