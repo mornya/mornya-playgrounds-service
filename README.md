@@ -19,8 +19,10 @@ npm install
 # or if you're using Yarn
 yarn
 ```
-Then generate SSL certification files (`ssl-cert.pem` and `ssl-key.pem`) and copy them on project root directory.
-See [How to generate these files](http://ohgyun.com/429)
+Then generate SSL self-certification files (`ssl-cert.pem` and `ssl-key.pem`) and copy them on project root directory.
+```sh
+openssl req -x509 -newkey rsa:4096 -keyout ssl-key.pem -out ssl-cert.pem -days 365
+```
 
 Next, copy `.env.development` file to `.env` also configure it.
 
