@@ -145,7 +145,8 @@ export default class UserController extends BaseController {
       .then((resultData) => {
         if (!resultData) {
           // Insert a new user
-          return this.userModel.create({ userId, provider, userName, photoUrl, email });
+          const date = new Date();
+          return this.userModel.create({ userId, provider, userName, photoUrl, email, createdAt: date, updatedAt: date });
         } else {
           // Update a user
           this.userModel.update({ userId }, { $set: { userName, photoUrl, email } });

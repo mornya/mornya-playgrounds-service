@@ -28,3 +28,7 @@ yarn-error.log*
 
 # local multimedia upload files
 public/uploads
+
+# pem files
+/ssl-cert.pem
+/ssl-key.pem
