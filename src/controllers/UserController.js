@@ -6,7 +6,7 @@ export default class UserController extends BaseController {
     super();
 
     this.router = router;
-    this.router.get('/users', /*this.authorize('ADMIN'),*/ this.getUsers);
+    this.router.get('/users', this.authorize('ADMIN'), this.getUsers);
     this.router.get('/userRoles', this.getUserRoles);
     this.router.get('/user/:userId/:provider', this.authorize('NONE'), this.getUser);
     this.router.post('/user/:userId', this.authorize('ADMIN'), this.postUser);
@@ -143,13 +143,14 @@ export default class UserController extends BaseController {
 
     this.userModel.findOne({ userId, provider })
       .then((resultData) => {
+        const date = new Date();
+
         if (!resultData) {
           // Insert a new user
-          const date = new Date();
           return this.userModel.create({ userId, provider, userName, photoUrl, email, createdAt: date, updatedAt: date });
         } else {
           // Update a user
-          this.userModel.update({ userId }, { $set: { userName, photoUrl, email } });
+          this.userModel.updateOne({ userId, provider }, { $set: { userName, photoUrl, email, updatedAt: date } });
           return resultData;
         }
       })

@@ -62,7 +62,7 @@ export default (controllerMap) => {
     }, (accessToken, refreshToken, profile, done) => {
       const modifiedProfile = {
         ...profile,
-        emails: [ { value: '' } ],
+        emails: [ { value: profile._json.kaccount_email_verified ? profile._json.kaccount_email : '' } ],
         photos: [ { value: profile._json.properties.profile_image } ],
       };
       userController.saveAuthenticate('kakao', accessToken, refreshToken, modifiedProfile, done);
