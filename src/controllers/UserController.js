@@ -145,13 +145,10 @@ export default class UserController extends BaseController {
       .then((resultData) => {
         const date = new Date();
 
-        if (!resultData) {
-          // Insert a new user
-          return this.userModel.create({ userId, provider, userName, photoUrl, email, createdAt: date, updatedAt: date });
+        if (resultData) {
+          return this.userModel.findOneAndUpdate({ _id: resultData._id }, { $set: { userName, photoUrl, email } }, { returnNewDocument: true });
         } else {
-          // Update a user
-          this.userModel.updateOne({ userId, provider }, { $set: { userName, photoUrl, email, updatedAt: date } });
-          return resultData;
+          return this.userModel.create({ userId, provider, userName, photoUrl, email, createdAt: date, updatedAt: date });
         }
       })
       .then((resultData) => done(null, resultData)) // 사용자 정보 전달
