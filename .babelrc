@@ -1,19 +1,14 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "targets": {
           "node": "current"
         }
       }
     ],
-    [
-      "minify",
-      {
-        "mangle": false
-      }
-    ]
+    "minify"
   ],
   "plugins": [
     [
@@ -22,8 +17,8 @@
         "root": [ "./src/**" ]
       }
     ],
-    "transform-object-rest-spread",
-    "transform-class-properties"
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread"
   ],
   "env": {
     "test": {
@@ -36,8 +31,8 @@
           }
         ],
         "istanbul",
-        "transform-object-rest-spread",
-        "transform-class-properties"
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-object-rest-spread"
       ]
     }
   }

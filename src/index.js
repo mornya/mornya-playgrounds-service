@@ -25,9 +25,10 @@ env()
   })
   .then(({ HTTP_PORT, HTTPS_PORT }) => {
     console.info(
-      'Listening on port',
-      HTTP_PORT ? `${chalk.yellow(HTTP_PORT)}(HTTP)` : '',
-      HTTPS_PORT ? `/ ${chalk.yellow(HTTPS_PORT)}(HTTPS)` : ''
+      'Listening on port', [
+        HTTP_PORT ? `${chalk.yellow(HTTP_PORT)}(HTTP)` : null,
+        HTTPS_PORT ? `${chalk.yellow(HTTPS_PORT)}(HTTPS)` : null,
+      ].filter(Boolean).join(' / ')
     ); // eslint-disable-line no-console
   })
   .catch((err) => {
