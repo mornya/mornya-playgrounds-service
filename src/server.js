@@ -18,7 +18,7 @@ const servers = {
 };
 
 const start = (routeSet, passport = null) => {
-  const { HTTP_PORT = 8080, HTTPS_PORT, JWT_SECRET, PATH_ASSETS } = process.env;
+  const { PORT, HTTP_PORT, HTTPS_PORT, JWT_SECRET, PATH_ASSETS } = process.env;
 
   app.disable('x-powered-by');
 
@@ -72,13 +72,16 @@ const start = (routeSet, passport = null) => {
   });
 
   return new Promise((resolve, reject) => {
+    const httpPort = PORT || HTTP_PORT || 8080 // 헤로쿠를 위한 포트 우선순위
+    const httpsPort = HTTPS_PORT || null
+
     if (app.get('env') === 'test') {
-      servers.http = http.createServer(app).listen(HTTP_PORT, () => {
+      servers.http = http.createServer(app).listen(httpPort, () => {
         resolve(app); // returns only variable 'app' for testing
       });
     } else {
-      servers.http = http.createServer(app).listen(HTTP_PORT, () => {
-        if (HTTPS_PORT) {
+      servers.http = http.createServer(app).listen(httpPort, () => {
+        if (httpsPort) {
           const pathSSLKey = path.resolve(__dirname, '..', 'ssl-key.pem');
           const pathSSLCert = path.resolve(__dirname, '..', 'ssl-cert.pem');
           if (fs.existsSync(pathSSLKey) && fs.existsSync(pathSSLCert)) {
@@ -86,12 +89,12 @@ const start = (routeSet, passport = null) => {
               key: fs.readFileSync(pathSSLKey),
               cert: fs.readFileSync(pathSSLCert),
             };
-            servers.https = https.createServer(sslOptions, app).listen(HTTPS_PORT, resolve({ HTTP_PORT, HTTPS_PORT }));
+            servers.https = https.createServer(sslOptions, app).listen(httpsPort, resolve({ httpPort, httpsPort }));
           } else {
             reject(`"ssl-key.pem" or "ssl-cert.pem" file is not exists!`);
           }
         } else {
-          resolve({ HTTP_PORT, HTTPS_PORT });
+          resolve({ httpPort, httpsPort });
         }
       });
     }
