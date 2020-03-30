@@ -99,7 +99,6 @@ export default class UserController extends BaseController {
    */
   deleteUser = (req, res) => {
     const userId = req.params.userId;
-    const provider = req.body.provider;
 
     if (userId) {
       //this.userModel.remove({ userId, provider })

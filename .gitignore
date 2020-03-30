@@ -1,34 +1,40 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+# See below url for more informations.
+# https://help.github.com/articles/ignoring-files
 
-# dependencies
-/node_modules
-
-# testing
+# Local only
 /coverage
-
-# production
+/node_modules
 /build
 /out
 /dist
+/tmp
+/temp
+/temporary
+/.env
+/.env.local
+.DS_Store
+.eslintcache
 
-# misc
-/.idea
-/.vscode
-**/*.iml
-**/.DS_Store
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
+# Logs
+/logs
+*.log
+stats.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local multimedia upload files
-public/uploads
+# Editor directories and files
+/.idea
+/.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+**/*.iml
 
-# pem files
-/ssl-cert.pem
-/ssl-key.pem
+# Private keys
+*.key
+*.p12
+*.pem
+*.pfx
+*.csr

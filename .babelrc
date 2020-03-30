@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "@babel/preset-env",
+      "@babel/env",
       {
         "targets": {
           "node": "current"
@@ -22,18 +22,6 @@
   ],
   "env": {
     "test": {
-      "presets": [ "env" ],
-      "plugins": [
-        [
-          "module-resolver",
-          {
-            "root": [ "./src/**" ]
-          }
-        ],
-        "istanbul",
-        "@babel/plugin-proposal-class-properties",
-        "@babel/plugin-proposal-object-rest-spread"
-      ]
     }
   }
 }

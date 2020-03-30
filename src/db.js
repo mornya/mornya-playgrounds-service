@@ -45,8 +45,8 @@ const connect = () => {
   const mongodbUri = `mongodb://${MONGODB_USER}:${encodeURIComponent(MONGODB_PASS)}@${MONGODB_HOST}/${MONGODB_DATABASE}`;
   const mongodbOpts = {
     keepAlive: 1,
-    reconnectTries: 30,
     useNewUrlParser: true,
+    useUnifiedTopology: true,
   };
 
   return mongoose.connect(mongodbUri, mongodbOpts);
